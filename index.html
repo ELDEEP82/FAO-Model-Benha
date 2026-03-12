@@ -6,22 +6,24 @@
     <title>World Water Day 2026 | FAO Model - Benha University</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary-blue: #0077b6;
+            --primary-blue: #00b4d8;
+            --dark-blue: #03045e;
             --primary-green: #2d6a4f;
             --accent-green: #74c69d;
-            --dark: #0b132b;
-            --light: #f8f9fa;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: var(--light); color: var(--dark); overflow-x: hidden; }
+        body { background-color: #f0f2f5; color: #1b263b; overflow-x: hidden; line-height: 1.6; }
 
-        /* Navbar & Logo Magic */
+        /* Navbar */
         nav {
             position: fixed;
             top: 0; width: 100%;
@@ -29,27 +31,28 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(3, 4, 94, 0.85);
+            backdrop-filter: blur(15px);
             z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
         }
 
-        .logo-box { display: flex; align-items: center; gap: 15px; }
+        .logo-container { display: flex; align-items: center; gap: 20px; }
         
-        /* الخدعة هنا: mix-blend-mode بتشيل الخلفية السودة */
-        .logo-box img { 
-            height: 65px; 
-            mix-blend-mode: multiply; /* لو الخلفية بيضا */
-            /* mix-blend-mode: screen; استبدلها بـ screen لو الخلفية سودة */
-            filter: contrast(110%);
+        /* تأثير الشفافية للوجوهات (بشيل الخلفية السودة) */
+        .logo-container img { 
+            height: 70px; 
+            mix-blend-mode: screen; /* دي بتخلي الخلفية السودة شفافة */
+            filter: brightness(1.1) contrast(1.1);
         }
 
-        /* Hero */
+        .nav-text { color: white; font-weight: 900; font-size: 1.1rem; letter-spacing: 1px; }
+
+        /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, rgba(0,119,182,0.8), rgba(45,106,79,0.8)), 
-                        url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1920&q=80');
+            background: linear-gradient(135deg, rgba(3, 4, 94, 0.8), rgba(45, 106, 79, 0.7)), 
+                        url('https://images.unsplash.com/photo-1495556650867-99590cea3657?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -58,155 +61,211 @@
             align-items: center;
             text-align: center;
             color: white;
+            padding: 20px;
         }
 
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1; }
-        .hero p { font-size: 1.5rem; margin: 20px 0 40px; font-family: 'Cairo', sans-serif; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; margin-bottom: 10px; text-transform: uppercase; }
+        .hero p { font-family: 'Cairo', sans-serif; font-size: 1.5rem; margin-bottom: 40px; opacity: 0.9; }
+        
+        .btn-scroll {
+            padding: 15px 40px;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .btn-scroll:hover { transform: scale(1.1); background: var(--accent-green); }
 
-        /* Sections */
+        /* Content Sections */
         section { padding: 100px 10%; }
-        .title { text-align: center; margin-bottom: 60px; }
-        .title h2 { font-size: 2.5rem; color: var(--primary-blue); text-transform: uppercase; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.5rem; color: var(--dark-blue); text-transform: uppercase; position: relative; display: inline-block; }
+        .section-title h2::after { content: ''; position: absolute; width: 50%; height: 5px; background: var(--primary-green); bottom: -10px; left: 25%; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); }
-
-        /* Speaker Style */
-        .speaker-card { text-align: center; }
-        .speaker-card .img-placeholder { 
-            width: 160px; height: 160px; border-radius: 50%; 
-            background: #eee; margin: 0 auto 20px; 
-            border: 5px solid var(--accent-green);
-            overflow: hidden;
+        .grid-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05); 
+            transition: 0.4s;
+            border-top: 8px solid var(--primary-blue);
         }
+        .card:hover { transform: translateY(-15px); }
+        .card h3 { color: var(--primary-green); margin-bottom: 15px; font-size: 1.5rem; }
+        .card p { font-family: 'Cairo', sans-serif; font-size: 1rem; color: #555; }
 
-        /* Pricing Packages */
-        .pkg {
-            background: white; padding: 40px; border-radius: 25px; text-align: center;
-            border: 1px solid #eee; position: relative;
+        /* Speakers Grid */
+        .speakers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; }
+        .speaker-card .circle { 
+            width: 180px; height: 180px; border-radius: 50%; 
+            background: #e0e0e0; margin: 0 auto 20px; 
+            border: 6px solid var(--primary-blue);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; color: #bbb;
         }
-        .pkg.top { border: 2px solid var(--primary-blue); transform: scale(1.05); background: #f0faff; }
-        .pkg h3 { font-size: 1.8rem; margin-bottom: 10px; color: var(--primary-green); }
-        .pkg .price { font-weight: 900; font-size: 1.2rem; display: block; margin-bottom: 20px; }
+        .speaker-card h4 { font-size: 1.2rem; color: var(--dark-blue); font-weight: 700; }
+
+        /* Sponsorship */
+        .sponsor-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .pkg { 
+            background: white; padding: 50px 30px; border-radius: 30px; text-align: center; 
+            border: 1px solid #ddd; transition: 0.4s;
+        }
+        .pkg.featured { background: var(--dark-blue); color: white; transform: scale(1.05); border: none; }
+        .pkg h3 { font-size: 2rem; margin-bottom: 15px; }
+        .pkg .price { font-weight: 900; color: var(--accent-green); font-size: 1.3rem; margin-bottom: 25px; display: block; }
         .pkg ul { list-style: none; text-align: left; margin-bottom: 30px; }
-        .pkg ul li { margin-bottom: 10px; font-size: 0.9rem; }
+        .pkg ul li { margin-bottom: 12px; font-size: 0.9rem; }
         .pkg ul li i { color: var(--primary-blue); margin-right: 10px; }
 
-        footer { background: var(--dark); color: white; padding: 60px 10% 20px; text-align: center; }
-        .contact-link { color: var(--accent-green); text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+        /* Footer */
+        footer { background: var(--dark-blue); color: white; padding: 80px 10% 40px; text-align: center; }
+        .contact-info { margin: 40px 0; font-size: 1.2rem; font-weight: 700; }
+        .contact-info a { color: var(--primary-blue); text-decoration: none; margin: 0 20px; transition: 0.3s; }
+        .contact-info a:hover { color: var(--accent-green); }
 
-        /* Arabic Support */
-        .ar { font-family: 'Cairo', sans-serif; direction: rtl; }
+        @media (max-width: 768px) {
+            .logo-container img { height: 50px; }
+            section { padding: 60px 5%; }
+            .hero h1 { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo-box">
-            <img src="logo1.jpg" alt="Logo 1">
-            <img src="logo2.jpg" alt="Logo 2">
+        <div class="logo-container">
+            <img src="logo1.jpg" alt="FAO Logo">
+            <img src="logo2.jpg" alt="Benha University Logo">
         </div>
-        <div style="font-weight: 900; color: var(--primary-blue);">FAO MODEL</div>
+        <div class="nav-text">FAO MODEL</div>
     </nav>
 
     <header class="hero">
-        <div data-aos="zoom-out" data-aos-duration="1200">
-            <h1>WORLD WATER DAY <br> CELEBRATION 2026</h1>
-            <p class="ar">معاً لمستقبل مائي مستدام - جامعة بنها</p>
-            <div style="font-size: 1.2rem; margin-bottom: 30px;">
-                <i class="far fa-calendar-alt"></i> March 26, 2026 | <i class="fas fa-map-marker-alt"></i> Benha University
+        <div data-aos="fade-down" data-aos-duration="1500">
+            <h1>World Water Day 2026</h1>
+            <p>Moving Towards a Water-Sustainable Future at Benha University</p>
+            <div style="margin-bottom: 35px; font-weight: 700;">
+                <span><i class="fas fa-calendar-day"></i> March 26, 2026</span>
+                <span style="margin-left: 20px;"><i class="fas fa-map-marker-alt"></i> Benha University</span>
             </div>
+            <a href="#about" class="btn-scroll">Discover More</a>
         </div>
     </header>
 
     <section id="about">
-        <div class="grid">
-            <div class="card" data-aos="fade-up">
-                <h3 style="margin-bottom:15px; color: var(--primary-green);">WHO WE ARE</h3>
-                <p class="ar" style="font-size: 0.95rem;">FA Model هو نشاط طلابي يهدف لتمكين الشباب ونشر الوعي بالتحديات الزراعية والبيئية العالمية المستوحاة من منظمة الفاو.</p>
+        <div class="grid-info">
+            <div class="card" data-aos="fade-right">
+                <i class="fas fa-leaf" style="font-size: 2rem; color: var(--primary-green); margin-bottom: 20px;"></i>
+                <h3>WHO WE ARE</h3>
+                <p>FA Model is a premier student activity at Benha University, inspired by the FAO, dedicated to empowering youth to tackle global agricultural and environmental challenges.</p>
             </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <h3 style="margin-bottom:15px; color: var(--primary-blue);">THE EVENT</h3>
-                <p class="ar" style="font-size: 0.95rem;">احتفالية ضخمة تجمع الطلاب والمتخصصين لمناقشة استدامة المياه وحلول المستقبل لمواجهة تحديات المناخ.</p>
+            <div class="card" data-aos="fade-left">
+                <i class="fas fa-droplet" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 20px;"></i>
+                <h3>THE CELEBRATION</h3>
+                <p>A massive awareness event gathering students and experts to discuss water sustainability, climate action, and innovative solutions for our planet's future.</p>
             </div>
         </div>
     </section>
 
     <section style="background: #fff;">
-        <div class="title" data-aos="fade-up">
+        <div class="section-title" data-aos="fade-up">
             <h2>Guest Speakers</h2>
         </div>
-        <div class="grid">
-            <div class="speaker-card" data-aos="flip-left">
-                <div class="img-placeholder"></div>
+        <div class="speakers-grid">
+            <div class="speaker-card" data-aos="zoom-in">
+                <div class="circle"><i class="fas fa-user-tie"></i></div>
                 <h4>Director of National Water Research Center</h4>
             </div>
-            <div class="speaker-card" data-aos="flip-left" data-aos-delay="100">
-                <div class="img-placeholder"></div>
+            <div class="speaker-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="circle"><i class="fas fa-user-graduate"></i></div>
                 <h4>Dr. Abdelhakim El Shaer</h4>
             </div>
-            <div class="speaker-card" data-aos="flip-left" data-aos-delay="200">
-                <div class="img-placeholder"></div>
+            <div class="speaker-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="circle"><i class="fas fa-chalkboard-teacher"></i></div>
                 <h4>Ms. Rawya El Dabby</h4>
             </div>
-            <div class="speaker-card" data-aos="flip-left" data-aos-delay="300">
-                <div class="img-placeholder"></div>
+            <div class="speaker-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="circle"><i class="fas fa-microscope"></i></div>
                 <h4>Dr. Omar Massoud</h4>
             </div>
         </div>
     </section>
 
-    <section id="sponsors" style="background: #f8f9fa;">
-        <div class="title" data-aos="fade-up">
+    <section id="sponsors">
+        <div class="section-title" data-aos="fade-up">
             <h2>Sponsorship Packages</h2>
         </div>
-        <div class="grid">
-            <div class="pkg" data-aos="fade-right">
-                <h3>Silver</h3>
+        <div class="sponsor-container">
+            <div class="pkg" data-aos="fade-up">
+                <h3>SILVER</h3>
                 <span class="price">5,000 - 8,000 EGP</span>
                 <ul>
-                    <li><i class="fas fa-check-circle"></i> Social Media Logo</li>
-                    <li><i class="fas fa-check-circle"></i> Event Banner Logo</li>
-                    <li><i class="fas fa-check-circle"></i> Opening Mention</li>
+                    <li><i class="fas fa-check-circle"></i> Social Media Promotion</li>
+                    <li><i class="fas fa-check-circle"></i> Logo on Main Banner</li>
+                    <li><i class="fas fa-check-circle"></i> Official Event Mention</li>
                 </ul>
             </div>
-            <div class="pkg top" data-aos="fade-up">
-                <div style="background: var(--primary-blue); color: white; padding: 5px; position: absolute; top:0; left:0; width:100%; border-radius: 20px 20px 0 0; font-size: 0.8rem;">MOST POPULAR</div>
-                <h3>Platinum</h3>
-                <span class="price">20,000 - 25,000 EGP</span>
+            <div class="pkg featured" data-aos="fade-up" data-aos-delay="100">
+                <h3>PLATINUM</h3>
+                <span class="price" style="color: var(--accent-green);">20,000 - 25,000 EGP</span>
                 <ul>
-                    <li><i class="fas fa-check-circle"></i> Logo on All Materials</li>
-                    <li><i class="fas fa-check-circle"></i> Exhibition Booth</li>
-                    <li><i class="fas fa-check-circle"></i> Opening Speech Opportunity</li>
-                    <li><i class="fas fa-check-circle"></i> Logo on Certificates</li>
+                    <li><i class="fas fa-check-circle"></i> Logo on All Media & Backdrops</li>
+                    <li><i class="fas fa-check-circle"></i> Exclusive Exhibition Booth</li>
+                    <li><i class="fas fa-check-circle"></i> Keynote Speech Opportunity</li>
+                    <li><i class="fas fa-check-circle"></i> Brand Logo on Certificates</li>
                 </ul>
             </div>
-            <div class="pkg" data-aos="fade-left">
-                <h3>Gold</h3>
+            <div class="pkg" data-aos="fade-up" data-aos-delay="200">
+                <h3>GOLD</h3>
                 <span class="price">10,000 - 15,000 EGP</span>
                 <ul>
-                    <li><i class="fas fa-check-circle"></i> Exhibition Booth</li>
-                    <li><i class="fas fa-check-circle"></i> Logo on Certificates</li>
-                    <li><i class="fas fa-check-circle"></i> Social Media Campaign</li>
+                    <li><i class="fas fa-check-circle"></i> Exhibition Booth Space</li>
+                    <li><i class="fas fa-check-circle"></i> Logo on Certificates & Banners</li>
+                    <li><i class="fas fa-check-circle"></i> Targeted Social Media Campaign</li>
                 </ul>
             </div>
         </div>
     </section>
 
     <footer>
-        <h2 style="margin-bottom: 20px;">READY TO PARTNER?</h2>
-        <p class="ar" style="margin-bottom: 30px;">نحن بانتظار تواصلكم لخلق تأثير مستدام معاً</p>
-        <div style="margin-bottom: 40px;">
-            <a href="mailto:Salmaqamar117@gmail.com" class="contact-link">Salmaqamar117@gmail.com</a><br><br>
-            <a href="tel:01285325916" class="contact-link">01285325916</a>
+        <div data-aos="fade-up">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">BECOME A PARTNER</h2>
+            <p class="ar" style="font-family: 'Cairo', sans-serif;">نحن نؤمن بأن التعاون بين الشباب والمؤسسات هو المفتاح لخلق أثر مستدام.</p>
+            
+            <div class="contact-info">
+                <a href="mailto:Salmaqamar117@gmail.com"><i class="fas fa-envelope"></i> Salmaqamar117@gmail.com</a>
+                <a href="tel:01285325916"><i class="fas fa-phone"></i> 01285325916</a>
+            </div>
+
+            <hr style="opacity: 0.1; margin: 40px 0;">
+            <p style="opacity: 0.6; font-size: 0.8rem; letter-spacing: 2px;">
+                © 2026 FAO MODEL - BENHA UNIVERSITY | THINK BLUE, GO GREEN
+            </p>
         </div>
-        <p style="opacity: 0.5; font-size: 0.8rem;">© 2026 FAO MODEL - BENHA UNIVERSITY | THINK BLUE, GO GREEN</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Smooth scrolling for links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>
